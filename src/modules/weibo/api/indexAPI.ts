@@ -22,6 +22,18 @@ export const createIndexAPI = () => {
 
   return {
     getIndexUserInfo: (uid: string) => runner.runFunc<WeiboUserData>(async (disable) => {
+      const resHeaders = await axiosInstance({
+        "method": "POST",
+        "url": "https://visitor.passport.weibo.cn/visitor/genvisitor2",
+        "headers": {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "User-Agent": MOCK_UA,
+        },
+        "data": {
+          "cb": "visitor_gray_callback"
+        }
+      }).then(res => res.headers)
+      axiosInstance.defaults.headers.common['Cookie'] = resHeaders['set-cookie'].filter(cookie => cookie.startsWith('SUB') || cookie.startsWith('SUBP')).map(cookie => cookie.split(';')[0]).join(';');
       logger.debug(`[getInfo] ${uid}`);
       await waitMs(Math.floor(Math.random() * 100));
       return await axiosInstance({
