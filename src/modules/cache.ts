@@ -141,7 +141,7 @@ export class LevelCache implements CacheInterface {
             this.logger.error("[cache] parse error", err);
           }
         })
-        .on("end", function () {
+        .on("end", () => {
           this.logger.info(
             "[cache] cleaning finished, total cnt:",
             total,

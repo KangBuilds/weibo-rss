@@ -30,10 +30,12 @@ export const createIndexAPI = () => {
           "User-Agent": MOCK_UA,
         },
         "data": {
-          "cb": "visitor_gray_callback"
+          "cb": "visitor_gray_callback",
+          tid: '',
+          from: 'weibo'
         }
       }).then(res => res.headers)
-      axiosInstance.defaults.headers.common['Cookie'] = resHeaders['set-cookie'].filter(cookie => cookie.startsWith('SUB') || cookie.startsWith('SUBP')).map(cookie => cookie.split(';')[0]).join(';');
+      axiosInstance.defaults.headers.common['Cookie'] = resHeaders['set-cookie'].filter(cookie => cookie.startsWith('SUB=')).map(cookie => cookie.split(';')[0]).concat(['XSRF-TOKEN=111111']).join(';');
       logger.debug(`[getInfo] ${uid}`);
       await waitMs(Math.floor(Math.random() * 100));
       return await axiosInstance({
