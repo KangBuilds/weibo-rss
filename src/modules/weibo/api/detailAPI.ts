@@ -20,7 +20,7 @@ export const createDetailAPI = () => {
         method: 'get',
         url: `https://m.weibo.cn/statuses/show?id=${id}`,
         headers: {
-          'MWeibo-Pwa': 1,
+          'Mweibo-Pwa': 1,
           'Referer': `https://m.weibo.cn/detail/${id}`,
           'User-Agent': MOCK_UA,
           'X-Requested-With': 'XMLHttpRequest'
