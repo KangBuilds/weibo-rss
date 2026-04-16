@@ -125,9 +125,12 @@ export const statusToHTML = (status: WeiboStatus) => {
   if (status.pics) {
     status.pics.forEach(function (item) {
       tempHTML += "<br><br>";
-      const url = config.imageCache ? (config.imageCache + encodeURIComponent(item.url)) : item.url;
-      const largeUrl = config.imageCache ? (config.imageCache + encodeURIComponent(item.large.url)) : item.large.url;
-      tempHTML += '<a href="' + largeUrl + '" target="_blank"><img src="' + url+ '"></a>';
+      const toImageCacheUrl = (originalUrl: string) => {
+        const filename = originalUrl.split('/').pop();
+        return `${config.imageCache}large/${filename}`;
+      };
+      const largeUrl = config.imageCache ? toImageCacheUrl(item.large.url) : item.large.url;
+      tempHTML += '<a href="' + largeUrl + '" target="_blank"><img src="' + largeUrl + '"></a>';
     });
   }
 
