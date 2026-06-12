@@ -1,5 +1,5 @@
 import { describe, expect, test } from '@jest/globals';
-import { WeiboData } from "./weibo";
+import { statusToHTML, WeiboData } from "./weibo";
 import { WeiboStatus } from '../../types';
 
 const wbData = new WeiboData({
@@ -34,5 +34,21 @@ describe('Weibo Data: domain to uid', () => {
   test('basic domain format', async () => {
     const resData = await wbData.fetchUIDByDomain('kaifulee');
     expect(resData).toBe('1197161814');
+  });
+});
+
+describe('Weibo Data: status HTML', () => {
+  test('uses the WordPress image cache with the upstream URL', () => {
+    const html = statusToHTML({
+      text: 'test',
+      pics: [{
+        large: {
+          url: 'https://wx3.sinaimg.cn/mw2000/example.jpg',
+        },
+      }],
+    } as WeiboStatus);
+
+    expect(html).toContain('https://i0.wp.com/wx3.sinaimg.cn/mw2000/example.jpg');
+    expect(html).not.toContain('https://i0.wp.com/https://');
   });
 });

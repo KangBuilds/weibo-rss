@@ -126,8 +126,7 @@ export const statusToHTML = (status: WeiboStatus) => {
     status.pics.forEach(function (item) {
       tempHTML += "<br><br>";
       const toImageCacheUrl = (originalUrl: string) => {
-        const filename = originalUrl.split('/').pop();
-        return `${config.imageCache}large/${filename}`;
+        return `${config.imageCache}${originalUrl.replace(/^https:\/\//, '')}`;
       };
       const largeUrl = config.imageCache ? toImageCacheUrl(item.large.url) : item.large.url;
       tempHTML += '<a href="' + largeUrl + '" target="_blank"><img src="' + largeUrl + '"></a>';
