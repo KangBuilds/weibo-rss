@@ -29,9 +29,6 @@
   .footer-bottom {
     margin-top: 100px;
   }
-  .reader-list {
-    margin-top: 20px;
-  }
   #form {
     margin-top: 18px;
   }
@@ -76,11 +73,6 @@
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/clipboard.min.js"></script>
 <script>
-var prefix = {
-  inoreader: "https://www.inoreader.com/?add_feed=",
-  feedly: "https://cloud.feedly.com/#subscription/feed/",
-};
-
 // 初始化Clipboard插件
 var clipboard = new Clipboard('#copy-btn');
 clipboard.on('success', function(e) {
@@ -126,9 +118,6 @@ function showResult(uid) {
   var feedUrl = baseUrl + "rss/user/" + uid;
 
   $("#foo").val(feedUrl);
-  for (var reader in prefix) {
-    $("#" + reader).attr("href", prefix[reader] + feedUrl);
-  }
   $(".result").show();
 }
 </script>
